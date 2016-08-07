@@ -1,12 +1,12 @@
 (defproject hello-aws "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "A mini web-site, grabbing AWS meta-data for display"
+  :url "http://hosted_by_aws.com"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
                  [ring-server "0.4.0"]
                  [http.async.client "1.1.0"]]
-  :plugins [[lein-ring "0.8.12"]]
+  :plugins [[lein-ring "0.9.7"]]
   :ring {:handler hello-aws.handler/app
          :init hello-aws.handler/init
          :destroy hello-aws.handler/destroy}
@@ -16,4 +16,4 @@
    {:ring
     {:open-browser? false, :stacktraces? false, :auto-reload? false}}
    :dev
-   {:dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.3.1"]]}})
+   {:dependencies [[ring/ring-mock "0.3.0"] [ring/ring-devel "1.6.0-beta4"]]}})

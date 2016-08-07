@@ -15,8 +15,8 @@
           http/string))))
 
 (defn home []
-  (layout/common [:h1 "Hello World!"])
-  (layout/common [:h2 "Public IP Address: " (get-aws-metadata aws-url)]))
+  (layout/common [:h1 "Hello World!"]
+    [:h2 "Public IP Address: " (get-aws-metadata aws-url)]))
 
 (defroutes home-routes
   (GET "/" [] (home)))
