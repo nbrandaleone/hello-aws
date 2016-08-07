@@ -3,8 +3,8 @@
             [hello-aws.views.layout :as layout]
             [org.httpkit.client :as http]))
 
-;(def aws-url "http://169.254.169.254/latest/meta-data/public-ipv4")
-(def aws-url "https://google.com")
+(def aws-url "http://169.254.169.254/latest/meta-data/public-ipv4")
+;(def aws-url "https://google.com")
 
 ;; get meta-data information from AWS
 (defn get-aws-metadata [url]
