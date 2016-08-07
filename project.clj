@@ -1,11 +1,11 @@
 (defproject hello-aws "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [compojure "1.1.6"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [compojure "1.5.1"]
                  [hiccup "1.0.5"]
-                 [ring-server "0.3.1"]
-                 [http.async.client "1.0.1"]]
+                 [ring-server "0.4.0"]
+                 [http.async.client "1.1.0"]]
   :plugins [[lein-ring "0.8.12"]]
   :ring {:handler hello-aws.handler/app
          :init hello-aws.handler/init
