@@ -14,6 +14,7 @@
   {:uberjar {:aot :all}
    :production
    {:ring
-    {:open-browser? false, :stacktraces? false, :auto-reload? false}}
+    {:open-browser? false, :stacktraces? false, 
+	:auto-reload? false, :port ~(System/getenv "RING_PORT")}}
    :dev
    {:dependencies [[ring/ring-mock "0.3.0"] [ring/ring-devel "1.6.0-beta4"]]}})

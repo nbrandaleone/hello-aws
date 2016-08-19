@@ -18,6 +18,13 @@ To start a web server for the application, run:
     lein ring server-headless <port | 3000>
     lein with-profile +production ring uberjar
 
+	# create app using template
+	lein new compojure-app my-app
+
+	# Running in production
+	# Create an environmental variable, to pass port info on
+	$ export RING_PORT 80
+	$ java -jar my_uberjar_standalone.jar
 ## License
 
 Copyright © 2016 FIXME
