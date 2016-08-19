@@ -22,9 +22,11 @@ To start a web server for the application, run:
 	lein new compojure-app my-app
 
 	# Running in production
-	# Create an environmental variable, to pass port info on
-	$ export RING_PORT 80
+	# RING pays attention to environmental variables
+	# PORT and SSLPORT
+	$ export PORT=8080
 	$ java -jar my_uberjar_standalone.jar
+
 ## License
 
 Copyright © 2016 FIXME
