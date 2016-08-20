@@ -1,0 +1,93 @@
+#!/bin/sh
+#
+# /etc/init.d/myjavaweb
+# Subsystem file for starting Jetty web server
+#
+# chkconfig: 2345 95 05
+# description: This service runs a web server once the machine is up
+#
+# processname: myjavaweb
+# config: /etc/myjavaweb/myjavaweb.conf
+# config: /etc/sysconfig/myjavaweb
+# pidfile: /var/run/myjavaweb.pid
+
+### BEGIN INIT INFO
+# Provides: myjavaweb
+# Required-Start: $local_fs $network $syslog
+# Required-Stop: $local_fs $syslog
+# Should-Start: $syslog
+# Should-Stop: $network $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Required-Stop:     $remote_fs $syslog
+#
+# Short-Description: Start up Jetty web server on port 3000
+# Description:       This script launches a java program
+#                    which is a self-contained web server (Jetty)
+#                    and web application, running on port 3000.
+#
+#                    The program is written in Clojure, but compiled
+#                    into Java.
+#
+#                    Amazon AMI are built from RedHat distros, which use
+#                    this type of initialization scripts, instead of
+#                    upstart or systemd, as used in other Linux distros.
+### END INIT INFO
+# Author: Nick Brandaleone <nbrand@amazon.com>, August 2016
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+# pull in sysconfig settings
+[ -f /etc/sysconfig/myjavaweb ] && . /etc/sysconfig/myjavaweb
+
+RETVAL=0
+prog="myjavaweb"
+PID_FILE=/var/run/$prog.pid
+
+start() {
+        echo -n $"Starting $prog: "
+        java -jar /home/ec2-user/hello-aws.jar &
+        RETVAL=$!
+	echo "$RETVAL" > "$PID_FILE"
+        touch /var/lock/subsys/$prog
+	echo
+}
+
+stop() {
+        echo -n $"Stopping $prog: "
+        kill -TERM `cat "$PID_FILE"`
+        rm -f /var/lock/subsys/$prog && rm -f "$PID_FILE"
+        echo
+}
+
+reload() {
+        echo -n $"Reloading $prog: "
+        kill -HUP "$PID_FILE"
+        RETVAL=$?
+        echo
+}
+
+case "$1" in
+        start)
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        restart)
+                stop
+                start
+                ;;
+        reload)
+                reload
+                ;;
+        status)
+                status prog
+                RETVAL=$?
+                ;;
+        *)
+                echo $"Usage: $0 {start|stop|restart|reload|status}"
+                RETVAL=2
+esac
+exit $RETVAL
